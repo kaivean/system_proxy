@@ -1,8 +1,8 @@
 name: system_proxy
-description: A new flutter plugin project.
+description: A Flutter Plugin to get system plugin. Use to set dart HttpClient proxy for grabing requests.
 version: 0.0.1
-author:
-homepage:
+author: kaivean@outlook.com
+homepage: https://github.com/kaivean/system_proxy
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
