@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:system_proxy/system_proxy.dart';
@@ -7,10 +9,7 @@ void main() {
 
   setUp(() {
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return {
-        'host': '127.0.0.1',
-        'port': '8899'
-      };
+      return {'host': '127.0.0.1', 'port': '8899'};
     });
   });
 
@@ -19,8 +18,7 @@ void main() {
   });
 
   test('getProxySettings', () async {
-
-    Map<String, String> proxy = await SystemProxy.getProxySettings();
+    Map<String, String> proxy = await (SystemProxy.getProxySettings() as FutureOr<Map<String, String>>);
 
     expect(proxy['host'], '127.0.0.1');
     expect(proxy['port'], '8899');
