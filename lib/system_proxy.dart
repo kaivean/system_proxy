@@ -11,7 +11,7 @@ class SystemProxy {
   /// Has proxy, return: {port: 8899, host: 172.24.141.93}
   /// no proxy, return: null
   ///
-  static Future<Map<String, String>> getProxySettings() async {
+  static Future<Map<String, String>?> getProxySettings() async {
     if (Platform.isAndroid) {
 
       dynamic proxySettingRes = await _channel.invokeMethod('getProxySettings');
