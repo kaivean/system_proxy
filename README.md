@@ -1,6 +1,6 @@
 # system_proxy
 
-A Flutter Plugin to get system proxy setting. It is used to proxy for Flutter and Dart HttpClient request。Because Dart HttpClient is adapting the system proxy setting automatically in default, it's  difficult to grab requests for testing .
+A Flutter Plugin to get system proxy setting. It is used to proxy for Flutter and Dart HttpClient request。Because Dart HttpClient does not adapt the system proxy setting automatically in default, it's  difficult to grab requests for testing .
 
 获取系统代理配置。
 可用于为flutter的Dart `HttpClient`的请求设置代理，因为默认Dart请求不会理睬系统代理配置，这对于抓取请求来进行测试等场景造成不小困难。

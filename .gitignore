@@ -29,6 +29,7 @@
 .pub/
 /build/
 
+example/build
 example/.flutter-plugins-dependencies
 example/ios/Podfile.lock
 example/ios/Flutter/flutter_export_environment.sh
