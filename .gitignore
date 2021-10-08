@@ -45,7 +45,7 @@ example/ios/Runner.xcworkspace/xcshareddata/
 **/android/gradlew.bat
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java
-**/android/gradle/
+**/android/gradle/wrapper/gradle-wrapper.jar
 **/android/.project
 **/android/.settings
 
