@@ -8,7 +8,8 @@ class SystemProxy {
       const MethodChannel('system_proxy');
 
   /// get system proxy
-  /// Has proxy, return: {port: 8899, host: 172.24.141.93}
+  /// Has fixed proxy, return: {port: 8899, host: 172.24.141.93}
+  /// Has automatic proxy (iOS only), return: {url: http://example.com/wpad.dat}
   /// no proxy, return: null
   ///
   static Future<Map<String, String>?> getProxySettings() async {
@@ -34,6 +35,10 @@ class SystemProxy {
         return {
           "port": proxySetting['HTTPPort'].toString(),
           "host": proxySetting['HTTPProxy'].toString(),
+        };
+      } else if (proxySetting['ProxyAutoConfigEnable'] == 1) {
+        return {
+          "url": proxySetting['ProxyAutoConfigURLString'].toString(),
         };
       }
     }
