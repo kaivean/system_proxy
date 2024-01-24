@@ -25,7 +25,9 @@ apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 28
+    namespace "com.kaivean.system_proxy_example"
+
+    compileSdk 33
 
     lintOptions {
         disable 'InvalidPackage'
@@ -34,8 +36,8 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.kaivean.system_proxy_example"
-        minSdkVersion 16
-        targetSdkVersion 28
+        minSdk 19
+        targetSdk 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }

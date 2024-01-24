@@ -4,28 +4,30 @@ version '1.0-SNAPSHOT'
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.2'
+        classpath 'com.android.tools.build:gradle:8.2.1'
     }
 }
 
 rootProject.allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
+    namespace 'com.kaivean.system_proxy'
+
+    compileSdk 33
 
     defaultConfig {
-        minSdkVersion 16
+        minSdk 19
     }
     lintOptions {
         disable 'InvalidPackage'
