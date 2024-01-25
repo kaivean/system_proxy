@@ -25,7 +25,7 @@ class _MyAppState extends State<MyApp> {
     String proxyStr;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      Map<String, String> proxy = await SystemProxy.getProxySettings();
+      Map<String, String>? proxy = await SystemProxy.getProxySettings();
       if (proxy != null) {
         proxyStr = '${proxy["host"]}:${proxy["port"]}';
       }
