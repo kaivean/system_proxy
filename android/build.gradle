@@ -8,7 +8,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.2'
+        classpath 'com.android.tools.build:gradle:7.3.0'
     }
 }
 
@@ -22,7 +22,11 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
+    if (project.android.hasProperty("namespace")) {
+        namespace 'com.kaivean.system_proxy'
+    }
+
+    compileSdkVersion 34
 
     defaultConfig {
         minSdkVersion 16

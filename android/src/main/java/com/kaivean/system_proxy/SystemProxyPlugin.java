@@ -47,7 +47,7 @@ public class SystemProxyPlugin implements FlutterPlugin, MethodCallHandler {
       ProxyInfo defaultProxy = manager.getDefaultProxy();
 
       if (defaultProxy != null) {
-        Map map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         map.put("host", defaultProxy.getHost());
         map.put("port", Integer.toString(defaultProxy.getPort()));
         result.success(map);
