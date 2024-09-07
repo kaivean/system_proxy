@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
@@ -40,6 +41,40 @@ class SystemProxy {
         return {
           "url": proxySetting['ProxyAutoConfigURLString'].toString(),
         };
+      }
+    }
+    else if (Platform.isWindows) {
+      Map<String, String> result = {};
+      final proxySettingRes = await _channel.invokeMethod<String>('getProxySettings');
+
+      // Map Keys
+      //
+      // see https://learn.microsoft.com/en-us/windows/win32/api/winhttp/ns-winhttp-winhttp_current_user_ie_proxy_config#members
+      //
+      // autoConfigUrl is lpszAutoConfigUrl
+      // proxy is lpszProxy
+      // proxyBypass is lpszProxyBypass
+      final Map<String, dynamic> proxySettingMap = jsonDecode(proxySettingRes!);
+
+      if (proxySettingMap['autoConfigUrl'] != null) {
+        result['url'] = proxySettingMap['autoConfigUrl'].toString();
+      }
+      if (proxySettingMap['proxy'] != null) {
+        final proxySplit = proxySettingMap['proxy'].toString().split(':');
+        if (0 < proxySplit.length) {
+          result['host'] = proxySplit[0];
+        }
+        if (1 < proxySplit.length) {
+          result['port'] = proxySplit[1];
+        }
+      }
+      if (proxySettingMap['proxyBypass'] != null) {
+      }
+
+      if (result.length == 0) {
+        return null;
+      } else {
+        return result;
       }
     }
     return null;
