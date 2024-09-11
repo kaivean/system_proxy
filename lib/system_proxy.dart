@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
@@ -45,7 +44,6 @@ class SystemProxy {
     }
     else if (Platform.isWindows) {
       Map<String, String> result = {};
-      final proxySettingRes = await _channel.invokeMethod<String>('getProxySettings');
 
       // Map Keys
       //
@@ -54,7 +52,7 @@ class SystemProxy {
       // autoConfigUrl is lpszAutoConfigUrl
       // proxy is lpszProxy
       // proxyBypass is lpszProxyBypass
-      final Map<String, dynamic> proxySettingMap = jsonDecode(proxySettingRes!);
+      final Map<Object?, Object?> proxySettingMap = await _channel.invokeMethod<dynamic>('getProxySettings');
 
       if (proxySettingMap['autoConfigUrl'] != null) {
         result['url'] = proxySettingMap['autoConfigUrl'].toString();

@@ -54,50 +54,33 @@ std::string SystemProxyPlugin::LPWSTRToString(LPWSTR wideStr) {
   return std::string(buffer.data());
 }
 
-std::string SystemProxyPlugin::MapToJson(const std::unordered_map<std::string, std::string>& map) {
-  std::stringstream json_stream;
-  json_stream << "{";
-
-  for (auto it = map.begin(); it != map.end(); ++it) {
-    if (it != map.begin()) {
-      json_stream << ",";
-    }
-    json_stream << "\"" << it->first << "\":\"" << it->second << "\"";
-  }
-
-  json_stream << "}";
-  return json_stream.str();
-}
-
-
 void SystemProxyPlugin::HandleMethodCall(
     const flutter::MethodCall<flutter::EncodableValue> &method_call,
     std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result) {
   if (method_call.method_name().compare("getProxySettings") == 0) {
-    std::unordered_map<std::string, std::string> proxyConfigMap;
+    flutter::EncodableMap proxyConfigMap = flutter::EncodableMap();
 
     WINHTTP_CURRENT_USER_IE_PROXY_CONFIG proxyConfig;
     // Retrieve the proxy configuration for the current user
     if (WinHttpGetIEProxyConfigForCurrentUser(&proxyConfig)) {
       // Check if an automatic configuration URL is set
       if (proxyConfig.lpszAutoConfigUrl) {
-        proxyConfigMap["autoConfigUrl"] = LPWSTRToString(proxyConfig.lpszAutoConfigUrl);
+        proxyConfigMap[flutter::EncodableValue("autoConfigUrl")] = flutter::EncodableValue(LPWSTRToString(proxyConfig.lpszAutoConfigUrl));
       }
       // Check if a manual proxy setting is provided
       if (proxyConfig.lpszProxy) {
-        proxyConfigMap["proxy"] = LPWSTRToString(proxyConfig.lpszProxy);
+        proxyConfigMap[flutter::EncodableValue("proxy")] = flutter::EncodableValue(LPWSTRToString(proxyConfig.lpszProxy));
       }
       // Check if a proxy bypass setting is provided
       if (proxyConfig.lpszProxyBypass) {
-        proxyConfigMap["proxyBypass"] = LPWSTRToString(proxyConfig.lpszProxyBypass);
+        proxyConfigMap[flutter::EncodableValue("proxyBypass")] = flutter::EncodableValue(LPWSTRToString(proxyConfig.lpszProxyBypass));
       }
       GlobalFree(proxyConfig.lpszAutoConfigUrl);
       GlobalFree(proxyConfig.lpszProxy);
       GlobalFree(proxyConfig.lpszProxyBypass);
     }
 
-    std::string json_str = MapToJson(proxyConfigMap);
-    result->Success(flutter::EncodableValue(json_str));
+    result->Success(flutter::EncodableValue(proxyConfigMap));
   } else {
     result->NotImplemented();
   }

@@ -27,7 +27,6 @@ class SystemProxyPlugin : public flutter::Plugin {
 
  private:
   std::string SystemProxyPlugin::LPWSTRToString(LPWSTR wideStr);
-  std::string SystemProxyPlugin::MapToJson(const std::unordered_map<std::string, std::string>& map);
 };
 
 }  // namespace system_proxy
